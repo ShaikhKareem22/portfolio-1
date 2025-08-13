@@ -1,1 +1,557 @@
-hi its my first project created with the help of the ai 
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[Your Name] - Full Stack Developer</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Custom Styles and Tailwind Config -->
+    <style>
+        :root {
+            --primary: #00d2ff;
+            --secondary: #3a7bd5;
+            --accent: #00ffaa;
+            --background: #0a0a0a;
+            --text: #f0f0f0;
+            --glow-primary: 0 0 5px var(--primary), 0 0 10px var(--primary), 0 0 20px var(--primary);
+            --glow-accent: 0 0 5px var(--accent), 0 0 10px var(--accent), 0 0 15px var(--accent);
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            font-family: 'Fira Code', monospace;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Rajdhani', sans-serif;
+            font-weight: 600;
+        }
+
+        .font-rajdhani { font-family: 'Rajdhani', sans-serif; }
+        .font-firacode { font-family: 'Fira Code', monospace; }
+
+        .glassmorphic {
+            background: rgba(16, 16, 16, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .gradient-border {
+            border: 2px solid;
+            border-image-slice: 1;
+            border-image-source: linear-gradient(to right, var(--primary), var(--accent));
+        }
+
+        .neon-glow-primary { text-shadow: var(--glow-primary); }
+        .neon-glow-accent { text-shadow: var(--glow-accent); }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            box-shadow: 0 0 15px var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            transition: all 0.3s ease;
+        }
+        .btn-secondary:hover {
+            background: var(--accent);
+            color: var(--background);
+            box-shadow: var(--glow-accent);
+        }
+        
+        /* Custom Cursor */
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            position: fixed;
+            z-index: 9999;
+            pointer-events: none;
+            box-shadow: var(--glow-accent);
+        }
+        .cursor-follower {
+            width: 30px;
+            height: 30px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            position: fixed;
+            z-index: 9999;
+            pointer-events: none;
+            mix-blend-mode: difference;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--background); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--accent); }
+    </style>
+</head>
+<body class="bg-[#0a0a0a] text-gray-200">
+
+    <!-- Custom Cursor -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-follower"></div>
+
+    <!-- 3D Matrix Background -->
+    <div id="matrix-bg" class="fixed top-0 left-0 w-full h-full z-[-1]"></div>
+
+    <!-- Container -->
+    <div class="relative z-10">
+
+        <!-- 1. Navigation Bar -->
+        <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-300 glassmorphic">
+            <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+                <a href="#home" class="text-3xl font-rajdhani font-bold gradient-text">[Your Name]Dev</a>
+                <nav class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link relative">Home</a>
+                    <a href="#about" class="nav-link relative">About</a>
+                    <a href="#skills" class="nav-link relative">Skills</a>
+                    <a href="#experience" class="nav-link relative">Experience</a>
+                    <a href="#projects" class="nav-link relative">Projects</a>
+                    <a href="#contact" class="nav-link relative">Contact</a>
+                </nav>
+                <button id="menu-btn" class="md:hidden z-50">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="fixed top-0 right-[-100%] md:hidden w-full h-full bg-black/80 backdrop-blur-xl transition-all duration-500 ease-in-out z-40">
+                <div class="flex flex-col items-center justify-center h-full space-y-8">
+                    <a href="#home" class="mobile-nav-link text-3xl">Home</a>
+                    <a href="#about" class="mobile-nav-link text-3xl">About</a>
+                    <a href="#skills" class="mobile-nav-link text-3xl">Skills</a>
+                    <a href="#experience" class="mobile-nav-link text-3xl">Experience</a>
+                    <a href="#projects" class="mobile-nav-link text-3xl">Projects</a>
+                    <a href="#contact" class="mobile-nav-link text-3xl">Contact</a>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="container mx-auto px-6">
+
+            <!-- 2. Hero Section -->
+            <section id="home" class="min-h-screen flex items-center justify-center">
+                <div id="terminal-box" class="w-full max-w-4xl p-8 rounded-lg glassmorphic border border-cyan-400/20 shadow-lg shadow-cyan-500/10">
+                    <div class="font-firacode text-lg md:text-xl space-y-4">
+                        <p><span class="text-green-400">&gt;</span> Hello_World()</p>
+                        <h1 class="text-4xl md:text-6xl font-rajdhani font-bold">I'm <span class="gradient-text">[Shaikh kareem]</span>, a AIML enngineer</h1>
+                        <p><span class="text-blue-400">const</span> specialties = [<span class="text-yellow-400">"Ai tools expert"</span>, <span class="text-yellow-400">"Mathamatical fundamentals"</span>, <span class="text-yellow-400">"algorithams"</span>, <span class="text-yellow-400">"python"</span>];</p>
+                    </div>
+                    <div class="mt-8 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                        <a href="#projects" class="btn-primary text-center px-6 py-3 rounded-md font-bold uppercase tracking-wider">View Projects</a>
+                        <a href="#contact" class="btn-secondary text-center px-6 py-3 rounded-md font-bold uppercase tracking-wider">Contact Me</a>
+                    </div>
+                </div>
+                <div id="scroll-down" class="absolute bottom-10 left-1/2 -translate-x-1/2">
+                    <div class="w-6 h-10 border-2 border-gray-400 rounded-full flex justify-center p-1">
+                        <div class="w-1 h-2 bg-gray-400 rounded-full"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 3. About Section -->
+            <section id="about" class="py-20">
+                <h2 class="section-title text-4xl font-bold text-center mb-12">About Me</h2>
+                <div class="grid md:grid-cols-2 gap-16 items-center">
+                    <div class="about-left">
+                        <div class="relative w-full max-w-sm mx-auto">
+                            <div class="absolute -inset-1.5 bg-gradient-to-r from-cyan-400 to-green-400 rounded-lg blur opacity-75 animate-pulse"></div>
+                            <img src=""C:\Users\sk805\Downloads\kareem.jpg"" alt="Profile Picture" class="relative w-full rounded-lg shadow-lg">
+                        </div>
+                    </div>
+                    <div class="about-right space-y-4">
+                        <p class="text-lg">AIML Developer with no years of experience specializing in creating and studing . My expertise lies in the Python, combined with a passion for 3D Learning new Ai tools.</p>
+                        <ul class="space-y-2">
+                            <li><i class="fas fa-user-circle text-cyan-400 mr-2"></i><strong>Name:</strong> [shaikh kareem]</li>
+                            <li><i class="fas fa-envelope text-cyan-400 mr-2"></i><strong>Email:</strong> [shaikh.kareem0123@gmail.com]</li>
+                            <li><i class="fas fa-phone text-cyan-400 mr-2"></i><strong>Phone:</strong> (+91) 7058325635</li>
+                            <li><i class="fas fa-map-marker-alt text-cyan-400 mr-2"></i><strong>Location:</strong> [parbhani Maharashtra]</li>
+                        </ul>
+                        <div class="flex space-x-4 mt-4">
+                            <a href="#" class="social-icon text-3xl text-gray-400 hover:text-primary"><i class="fab fa-github"></i></a>
+                            <a href="#" class="social-icon text-3xl text-gray-400 hover:text-primary"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-icon text-3xl text-gray-400 hover:text-primary"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 4. Skills Section -->
+            <section id="skills" class="py-20">
+                <h2 class="section-title text-4xl font-bold text-center mb-12">My Arsenal</h2>
+                <div class="skills-grid grid grid-cols-2 md:grid-cols-4 gap-8">
+                    <!-- Skills will be injected by JS to showcase stagger animation -->
+                </div>
+            </section>
+            
+             <!-- 5. Experience Section -->
+            <section id="experience" class="py-20">
+                <h2 class="section-title text-4xl font-bold text-center mb-12">Career Timeline</h2>
+                <div class="relative">
+                    <div class="absolute left-1/2 h-full w-1 bg-gray-700"></div>
+                    <!-- Experience Items -->
+                    <div class="experience-item mb-8 flex justify-between items-center w-full">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-12 h-12 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">;</h1>
+                        </div>
+                        <div class="order-1 glassmorphic rounded-lg shadow-xl w-5/12 px-6 py-4">
+                            <h3 class="font-bold text-xl mb-1">Senior Developer – TechVision Inc (2028–Present)</h3>
+                            <p class="text-sm text-gray-400">Lead developer for interactive WebGL projects.</p>
+                            <p class="text-xs mt-2 text-cyan-400">| Machine Learning | python | AWS</p>
+                        </div>
+                    </div>
+                     <div class="experience-item mb-8 flex justify-between flex-row-reverse items-center w-full">
+                        <div class="order-1 w-5/12"></div>
+                        <div class="z-20 flex items-center order-1 bg-gray-800 shadow-xl w-12 h-12 rounded-full">
+                            <h1 class="mx-auto font-semibold text-lg text-white">;</h1>
+                        </div>
+                        <div class="order-1 glassmorphic rounded-lg shadow-xl w-5/12 px-6 py-4">
+                            <h3 class="font-bold text-xl mb-1">BCA student – intrested in AI tools (2023–2026)</h3>
+                            <p class="text-sm text-gray-400">Focus on study and Learning New Ai Tools.</p>
+                            <p class="text-xs mt-2 text-cyan-400">HTML | C | C++ | Basic java</p>
+                        </div>
+                    </div>
+                    <!-- Add more experience items here -->
+                </div>
+            </section>
+
+            <!-- 6. Projects Section -->
+            <section id="projects" class="py-20">
+                <h2 class="section-title text-4xl font-bold text-center mb-12">Featured Projects</h2>
+                <div class="projects-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Project Card Example -->
+                    <div class="project-card glassmorphic rounded-lg overflow-hidden shadow-lg">
+                        <div class="relative group">
+                           <img src=""https://i.postimg.cc/K8WkJGF6/kareem.jpg"" alt="Project 1" class="w-full">
+                           <div class="absolute inset-0 bg-gradient-to-r from-cyan-500 to-blue-500 opacity-0 group-hover:opacity-70 transition-opacity duration-300"></div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-2xl font-bold mb-2">3D Portfolio Engine</h3>
+                            <p class="text-gray-400 mb-4">An interactive portfolio built with Three.js.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                               <span class="tech-tag">Three.js</span><span class="tech-tag">React</span><span class="tech-tag">GSAP</span>
+                            </div>
+                            <div class="flex space-x-4">
+                                <a href="#" class="btn-primary px-4 py-2 text-sm rounded-md">Live Demo</a>
+                                <a href="#" class="btn-secondary px-4 py-2 text-sm rounded-md">Code</a>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- Add 5 more project cards -->
+                </div>
+            </section>
+
+            <!-- 9. Contact Section -->
+            <section id="contact" class="py-20">
+                <h2 class="section-title text-4xl font-bold text-center mb-12">Get In Touch</h2>
+                <div class="contact-form-container grid md:grid-cols-2 gap-16 glassmorphic p-8 rounded-lg">
+                    <div class="contact-info space-y-4">
+                         <h3 class="text-3xl font-bold">Contact Information</h3>
+                         <p>Ready to build something amazing? Let's connect!</p>
+                         <p><i class="fas fa-envelope text-cyan-400 mr-2"></i> [shaikh.kareem0123@gmail.com]</p>
+                         <p><i class="fas fa-phone text-cyan-400 mr-2"></i> (+91) 7058325635</p>
+                         <div class="flex space-x-4 mt-4">
+                            <a href="#" class="social-icon text-3xl text-gray-400 hover:text-primary"><i class="fab fa-github"></i></a>
+                            <a href="#" class="social-icon text-3xl text-gray-400 hover:text-primary"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-icon text-3xl text-gray-400 hover:text-primary"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    <form class="space-y-4">
+                        <input type="text" placeholder="Your Name" class="form-input w-full p-3 bg-gray-800 rounded-md border border-gray-700 focus:border-cyan-400 focus:ring-cyan-400 focus:outline-none">
+                        <input type="email" placeholder="Your Email" class="form-input w-full p-3 bg-gray-800 rounded-md border border-gray-700 focus:border-cyan-400 focus:ring-cyan-400 focus:outline-none">
+                        <input type="text" placeholder="Subject" class="form-input w-full p-3 bg-gray-800 rounded-md border border-gray-700 focus:border-cyan-400 focus:ring-cyan-400 focus:outline-none">
+                        <textarea placeholder="Your Message" rows="5" class="form-input w-full p-3 bg-gray-800 rounded-md border border-gray-700 focus:border-cyan-400 focus:ring-cyan-400 focus:outline-none"></textarea>
+                        <button type="submit" id="submit-btn" class="btn-primary w-full py-3 rounded-md font-bold uppercase tracking-wider">Send Message</button>
+                    </form>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- 10. Footer -->
+        <footer class="py-8 border-t border-gray-800">
+            <div class="container mx-auto px-6 text-center text-gray-500">
+                <a href="#home" class="text-2xl font-rajdhani font-bold gradient-text">[Shiak kareem]Dev</a>
+                <div class="flex justify-center space-x-6 my-4">
+                   <a href="#home" class="hover:text-primary">Home</a>
+                   <a href="#about" class="hover:text-primary">About</a>
+                   <a href="#projects" class="hover:text-primary">Projects</a>
+                </div>
+                 <div class="flex justify-center space-x-4 mt-4">
+                    <a href="#" class="social-icon text-xl hover:text-primary"><i class="fab fa-github"></i></a>
+                    <a href="#" class="social-icon text-xl hover:text-primary"><i class="fab fa-linkedin"></i></a>
+                    <a href="#" class="social-icon text-xl hover:text-primary"><i class="fab fa-twitter"></i></a>
+                </div>
+                <p class="mt-4">&copy; 2025 [Shaikh kareem]. All Rights Reserved.</p>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- GSAP & Three.js CDNs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // --- GSAP and ScrollTrigger Registration ---
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // --- Custom Cursor ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorFollower = document.querySelector('.cursor-follower');
+        
+        gsap.set(cursorDot, { xPercent: -50, yPercent: -50 });
+        gsap.set(cursorFollower, { xPercent: -50, yPercent: -50 });
+
+        window.addEventListener('mousemove', e => {
+            gsap.to(cursorDot, 0.1, { x: e.clientX, y: e.clientY });
+            gsap.to(cursorFollower, 0.5, { x: e.clientX, y: e.clientY, ease: "power2.out" });
+        });
+
+        // --- Three.js Matrix Background ---
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById('matrix-bg').appendChild(renderer.domElement);
+
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789;=+-*/<>[]{}()';
+        const fontLoader = new THREE.FontLoader();
+        let textMeshes = [];
+
+        fontLoader.load('https://threejs.org/examples/fonts/helvetiker_regular.typeface.json', function (font) {
+            const textMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffaa, transparent: true, opacity: 0.7 });
+            for (let i = 0; i < 300; i++) {
+                const char = characters.charAt(Math.floor(Math.random() * characters.length));
+                const textGeometry = new THREE.TextGeometry(char, {
+                    font: font,
+                    size: 0.5,
+                    height: 0.02,
+                });
+                const mesh = new THREE.Mesh(textGeometry, textMaterial.clone());
+                mesh.position.set(
+                    (Math.random() - 0.5) * 20,
+                    (Math.random() - 0.5) * 20,
+                    (Math.random() - 0.5) * 20
+                );
+                scene.add(mesh);
+                textMeshes.push(mesh);
+            }
+        });
+        
+        camera.position.z = 10;
+        
+        // Mouse parallax for camera
+        document.addEventListener('mousemove', (event) => {
+            const mouseX = (event.clientX / window.innerWidth) * 2 - 1;
+            const mouseY = -(event.clientY / window.innerHeight) * 2 + 1;
+            gsap.to(camera.rotation, 1, {
+                x: -mouseY * 0.2,
+                y: -mouseX * 0.2,
+                ease: 'power2.out'
+            });
+        });
+
+        function animateMatrix() {
+            requestAnimationFrame(animateMatrix);
+            textMeshes.forEach(mesh => {
+                mesh.position.y -= 0.02;
+                if (mesh.position.y < -10) {
+                    mesh.position.y = 10;
+                }
+                mesh.material.opacity = Math.max(0, Math.sin(mesh.position.y * 0.5 + Date.now() * 0.001));
+            });
+            renderer.render(scene, camera);
+        }
+        animateMatrix();
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // --- Navigation Animations ---
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+        let menuOpen = false;
+        
+        const menuTl = gsap.timeline({ paused: true });
+        menuTl.to(mobileMenu, { right: 0 });
+
+        menuBtn.addEventListener('click', () => {
+            if (menuOpen) {
+                menuTl.reverse();
+                menuBtn.innerHTML = `<i class="fas fa-bars text-2xl"></i>`;
+            } else {
+                menuTl.play();
+                menuBtn.innerHTML = `<i class="fas fa-times text-2xl"></i>`;
+            }
+            menuOpen = !menuOpen;
+        });
+        
+        mobileNavLinks.forEach(link => {
+           link.addEventListener('click', () => {
+               menuTl.reverse();
+               menuBtn.innerHTML = `<i class="fas fa-bars text-2xl"></i>`;
+               menuOpen = false;
+           });
+        });
+
+        // Nav link hover underline
+        document.querySelectorAll('.nav-link').forEach(link => {
+            const underline = document.createElement('div');
+            underline.className = "absolute bottom-[-5px] left-0 w-full h-[2px] bg-accent scale-x-0 origin-left transition-transform duration-300";
+            link.appendChild(underline);
+            link.addEventListener('mouseenter', () => gsap.to(underline, { scaleX: 1, duration: 0.3 }));
+            link.addEventListener('mouseleave', () => gsap.to(underline, { scaleX: 0, duration: 0.3 }));
+        });
+
+        // --- GSAP ScrollTrigger Animations ---
+        
+        // Hero Section Animation
+        gsap.from("#terminal-box", { duration: 1, y: 50, opacity: 0, delay: 0.5, ease: "power3.out" });
+        gsap.to("#scroll-down div", { y: 10, repeat: -1, yoyo: true, duration: 0.8, ease: "power1.inOut" });
+
+        // General Section Title Animation
+        gsap.utils.toArray('.section-title').forEach(title => {
+            gsap.from(title, {
+                scrollTrigger: { trigger: title, start: "top 80%", toggleActions: "play none none none" },
+                opacity: 0,
+                y: 50,
+                duration: 0.8,
+                ease: 'power3.out'
+            });
+        });
+
+        // About Section
+        gsap.from(".about-left", { scrollTrigger: { trigger: ".about-left", start: "top 80%" }, x: -100, opacity: 0, duration: 1 });
+        gsap.from(".about-right", { scrollTrigger: { trigger: ".about-right", start: "top 80%" }, x: 100, opacity: 0, duration: 1 });
+
+        // Skills Section
+        const skills = [
+            { icon: 'fab fa-js-square', name: 'JavaScript', level: 95 },
+            { icon: 'fab fa-react', name: 'React', level: 90 },
+            { icon: 'fab fa-node-js', name: 'Node.js', level: 85 },
+            { icon: 'fas fa-database', name: 'Databases', level: 88 },
+            { icon: 'fas fa-cube', name: 'Three.js', level: 92 },
+            { icon: 'fas fa-cloud', name: 'Cloud (AWS/GCP)', level: 80 },
+            { icon: 'fab fa-html5', name: 'HTML5', level: 98 },
+            { icon: 'fab fa-css3-alt', name: 'CSS3/Tailwind', level: 96 }
+        ];
+
+        const skillsGrid = document.querySelector('.skills-grid');
+        skills.forEach(skill => {
+            skillsGrid.innerHTML += `
+                <div class="skill-card glassmorphic p-4 text-center rounded-lg">
+                    <i class="${skill.icon} text-4xl text-accent mb-2"></i>
+                    <h3 class="text-xl font-bold">${skill.name}</h3>
+                    <div class="w-full bg-gray-700 rounded-full h-2.5 mt-2">
+                        <div class="bg-gradient-to-r from-primary to-accent h-2.5 rounded-full progress-bar" style="width: 0%" data-level="${skill.level}"></div>
+                    </div>
+                </div>
+            `;
+        });
+        
+        gsap.from(".skill-card", {
+            scrollTrigger: { trigger: ".skills-grid", start: "top 80%" },
+            opacity: 0,
+            y: 50,
+            stagger: 0.1,
+            duration: 0.5
+        });
+
+        gsap.utils.toArray('.progress-bar').forEach(bar => {
+            gsap.to(bar, {
+                scrollTrigger: { trigger: bar, start: "top 90%" },
+                width: bar.dataset.level + '%',
+                duration: 1.5,
+                ease: 'power2.out'
+            });
+        });
+        
+        // Experience Section
+        gsap.utils.toArray('.experience-item').forEach(item => {
+            gsap.from(item, {
+                scrollTrigger: { trigger: item, start: "top 85%", toggleActions: "play none none reverse" },
+                opacity: 0,
+                x: item.classList.contains('flex-row-reverse') ? 100 : -100,
+                duration: 1
+            });
+        });
+        
+        // Projects Section
+        gsap.from(".project-card", {
+            scrollTrigger: { trigger: ".projects-grid", start: "top 80%" },
+            opacity: 0,
+            y: 100,
+            scale: 0.8,
+            stagger: 0.2,
+            duration: 0.8,
+            ease: "back.out(1.7)"
+        });
+
+        // Contact Form
+        gsap.from(".contact-form-container", {
+             scrollTrigger: { trigger: ".contact-form-container", start: "top 80%" },
+             opacity: 0,
+             y: 100,
+             duration: 1
+        });
+        
+        // Magnetic Button
+        const submitBtn = document.getElementById('submit-btn');
+        submitBtn.addEventListener('mousemove', (e) => {
+            const rect = submitBtn.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            gsap.to(submitBtn, {
+                x: x * 0.4,
+                y: y * 0.4,
+                duration: 0.7,
+                ease: 'power2.out'
+            });
+        });
+         submitBtn.addEventListener('mouseleave', () => {
+             gsap.to(submitBtn, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.3)' });
+         });
+
+
+    });
+    </script>
+</body>
+</html>
